@@ -1,0 +1,46 @@
+
+/*--------------------       Master Styles       ------------------*/
+
+body {
+    font-family: Arial, sans-serif;
+    font-size: 1.1rem;
+    border: 1px solid black;
+}
+
+main {
+    max-width: 1800px;
+    margin: 0 auto;
+    border: 1px solid blue;
+}
+
+/*---------------------       Sort Area       ---------------------*/
+
+canvas {
+    width: 800px;
+    height: 500px;
+    border: 1px dashed royalblue;
+}
+
+
+/*-------------------      Button Styles       --------------------*/
+
+#bubbleSort {
+    font-size: 1.2rem;
+}
+
+#start {
+    font-size: 1.2rem;
+}
+
+#stop {
+    font-size: 1.2rem;
+}
+
+
+/*-----------------     Bubble Sort Styles      -------------------*/
+
+#sortContainer {
+    max-width: 1800px;
+    margin: 2rem auto;
+    border: 1px solid green;
+}
