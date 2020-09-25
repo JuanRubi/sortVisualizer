@@ -97,9 +97,9 @@ const actionsMap = {
 
     [ACTIONS.SWAP]: (action, members) => {
         const [i, j] = action.data;
-        let temp = members[i].getValue();
+        let temp2 = members[i].getValue();
         members[i].setValue(members[j].getValue(), "red");
-        members[j].setValue(temp, "yellow");
+        members[j].setValue(temp2, "yellow");
     },
 
     [ACTIONS.COMPARE]: (action, members) => {
@@ -129,14 +129,14 @@ const startingArray = (bottom = 1, top = 30) => {
 const bubbleSort = (array, onAction) => {
     for(let outer = 0; outer < array.length; outer++)
     {
-        for(let inner = 0; inner < outer; inner++)
+        for(let inner = 0; inner < array.length; inner++)
         {
             onAction({type: ACTIONS.COMPARE, data: [inner, inner+1]});
             if(array[inner] > array[inner+1])
             {
                 let temp = array[inner];
                 array[inner] = array[inner+1];
-                array[inner+1] = array[inner];
+                array[inner+1] = temp;
                 onAction({type: ACTIONS.SWAP, data: [inner, inner+1]});
             }
         }
@@ -188,7 +188,7 @@ function rectangleBar(x, y, width, height, color = "royalblue")
 }
 
 
-// TEST TO SEE IF EVERYTHIN WORKS.
+//---------------------     Creating the Animation      -----------------------
 const randomArray = startingArray();
 const arrayMembers = randomArray.map((v,i) => {
     return new rectangleBar(35*i + i, 0, 35, v*40);
@@ -198,7 +198,7 @@ const drawAll = () => arrayMembers.forEach((m) => m.draw());
 drawAll();
 
 let ticks = 0;
-const speed = 50;
+const speed = 30;
 
 document.getElementById("start").onclick = function() {
     bubbleSort(randomArray, (action) => {
