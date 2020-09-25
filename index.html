@@ -8,9 +8,30 @@
 </head>
 
 <body>
+    <header>
+        <nav>
+            <h1>Sorting Visualizer</h1>
+
+            <div class="navLinks">
+                <a class="navLink active-navLink" href="index.html">Home</a>
+                <a class="navLink" href="sortAlgorithms.html">Sort Algorithms</a>    
+            </div>
+        </nav>
+    </header>
+
     <main>
         <div class="sortSelection">
-            <button id="bubbleSort">Bubble Sort</button>
+            <div>
+                <p>Select a sort algorithm to visualize: </p>
+            </div>
+
+            <div class="sortAlgos">
+                <button id="bubbleSort">Bubble Sort</button>
+                <button id="selectionSort">Selection Sort</button>
+                <button id="insertionSort">Insertion Sort</button>
+                <button id="mergeSort">Merge Sort</button>
+                <button id="quickSort">Quick Sort</button>
+            </div>
         </div>
 
         <div id="sortContainer">

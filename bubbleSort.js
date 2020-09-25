@@ -1,79 +1,4 @@
 
-// var live = true;
-
-// // Function dealing with bubble sort.
-// function bubbleSort(array)
-// {
-//     // Function to perform swapping.
-//     function swap(leftIndex, rightIndex)
-//     {
-//         let temp = array[leftIndex];
-//         array[leftIndex] = array[rightIndex];
-//         array[rightIndex] = temp;
-//     }
-
-//     // Bubble sort algorithm.
-//     for(var outer = array.length-1; outer > 1; outer--)
-//     {
-//         for(let inner = 0; inner < outer; inner++)
-//         {
-//             if(array[inner] > array[inner+1])
-//             {
-//                 swap(inner, inner+1)
-//             }
-//         }
-//     }
-
-//     return array; // Returns the array sorted.
-// }
-
-// function theShow()
-// {
-//         // Displaying bars base on amount of numbers in array.
-//         var sortLocation = document.getElementById("sortArea");
-//         var room = sortLocation.getContext("2d");
-    
-//         var barColor = '#1111DD';   // Bar color.
-    
-//         var i = Math.floor((Math.random()*10)+1);
-//         var barHeight = Math.floor((Math.random()*6) + 1);
-    
-//         // Creating the bars where the height adjusts base on array item value.
-//         room.lineWidth = 5;
-//         room.strokeStyle = barColor;
-//         room.moveTo(i*10, 150);
-//         room.lineTo(i*10, 150-barHeight*25);
-//         room.lineCap = "squared";
-//         room.stroke();
-
-
-
-// }
-
-// var animation;
-
-// // Activates bubble sort once start is clicked.
-// document.getElementById("start").onclick = function() {
-//     var numArray = [1,3,2,5];   // Test array.
-    
-//     if(live)
-//     {
-//         animation = setInterval(theShow, 10);
-//         live = false;
-//     }
-//     else
-//     {
-//         alert("There is an error in the code!");
-//     }
-// }
-
-// document.getElementById("stop").onclick = function() {
-//     clearInterval(animation);       // Ends the sort animation.
-//     live = true;        // Allows the sort to start again.
-// }
-
-
-
 //---------------------     Getting our Canvas Element      -------------------
 
 const canvas = document.querySelector("canvas"); // Gets first matching tag.
@@ -98,8 +23,8 @@ const actionsMap = {
     [ACTIONS.SWAP]: (action, members) => {
         const [i, j] = action.data;
         let temp2 = members[i].getValue();
-        members[i].setValue(members[j].getValue(), "red");
-        members[j].setValue(temp2, "yellow");
+        members[i].setValue(members[j].getValue(), "#000080");
+        members[j].setValue(temp2, "#FFD700");
     },
 
     [ACTIONS.COMPARE]: (action, members) => {
@@ -191,16 +116,16 @@ function rectangleBar(x, y, width, height, color = "royalblue")
 //---------------------     Creating the Animation      -----------------------
 const randomArray = startingArray();
 const arrayMembers = randomArray.map((v,i) => {
-    return new rectangleBar(35*i + i, 0, 35, v*40);
+    return new rectangleBar(41*i + i, 0, 40, v*40);
 });
 
 const drawAll = () => arrayMembers.forEach((m) => m.draw());
 drawAll();
 
 let ticks = 0;
-const speed = 30;
+const speed = 90;
 
-document.getElementById("start").onclick = function() {
+let animation = document.getElementById("start").onclick = function() {
     bubbleSort(randomArray, (action) => {
         ticks++;
     
@@ -211,4 +136,8 @@ document.getElementById("start").onclick = function() {
             arrayMembers.forEach((m) => m.resetColor());
         }, ticks*speed);
     });
+}
+
+document.getElementById("stop").onclick = function() {
+    clearTimeout(); // Needs fixing.
 }
