@@ -6,7 +6,7 @@ canvas.height = window.innerHeight;
 canvas.width = window.innerWidth;
 const sortingArea = canvas.getContext("2d");
 
-//---------------------       Actions to Perform      -------------------------
+//---------------------       ACTIONS to Perform      -------------------------
 
 const ACTIONS = {
     SORT: "SORT",
@@ -54,7 +54,7 @@ const startingArray = (bottom = 1, top = 30) => {
 const bubbleSort = (array, onAction) => {
     for(let outer = 0; outer < array.length; outer++)
     {
-        for(let inner = 0; inner < array.length; inner++)
+        for(let inner = 0; inner < array.length-1; inner++)
         {
             onAction({type: ACTIONS.COMPARE, data: [inner, inner+1]});
             if(array[inner] > array[inner+1])
@@ -70,6 +70,30 @@ const bubbleSort = (array, onAction) => {
     }
 
     return array;
+};
+
+
+//------------------        Selection Sort Algorithm        -------------------
+
+const selectionSort = (array, onAction) => {        // Algorithm not working????
+                                                    // Fails to detect smaller rectangle at times.
+    for(let outer = 0; outer < array.length; outer++)
+    {
+        let smallest = outer;
+
+        for(let inner = outer + 1; inner < array.length; inner++)
+        {   
+            onAction({type: ACTIONS.COMPARE, data: [smallest, inner]});
+            if(array[smallest] > array[inner])
+            {
+                smallest = inner;
+                onAction({type: ACTIONS.SWAP, data: [outer, smallest]});
+            }
+        }
+
+        //onAction({type: ACTIONS.SWAP, data: [outer, smallest]});
+        onAction({type: ACTIONS.SORT, data: outer});
+    }
 };
 
 
@@ -113,7 +137,8 @@ function rectangleBar(x, y, width, height, color = "royalblue")
 }
 
 
-//---------------------     Creating the Animation      -----------------------
+//---------------------     Creating the Animations      ----------------------
+
 const randomArray = startingArray();
 const arrayMembers = randomArray.map((v,i) => {
     return new rectangleBar(38*i + i, 0, 38, v*40);
@@ -123,13 +148,13 @@ const drawAll = () => arrayMembers.forEach((m) => m.draw());
 drawAll();
 
 let ticks = 0;
-const speed = 90;
+const speed = 30;
 
 //---------       Bubble Sort Animation       -------------
 document.getElementById("bubbleSort").onclick = function() {
     document.getElementById("start").onclick = function() {
         bubbleSort(randomArray, (action) => {
-            ticks++;
+           ticks++; 
         
             setTimeout(() => {
                 actionsMap[action.type] (action, arrayMembers);
@@ -141,6 +166,22 @@ document.getElementById("bubbleSort").onclick = function() {
     }
 }
 
-document.getElementById("stop").onclick = function() {
-    clearTimeout(); // Needs fixing.
+// document.getElementById("stop").onclick = function() {
+//     clearTimeout(); // Needs fixing.
+//}
+
+//---------     Selection Sort Animation        -----------
+document.getElementById("selectionSort").onclick = function() {
+    document.getElementById("start").onclick = function() {
+        selectionSort(randomArray, (action) => {
+            ticks++;
+        
+            setTimeout(() => {
+                actionsMap[action.type] (action, arrayMembers);
+                sortingArea.clearRect(0, 0, innerWidth, innerHeight);
+                drawAll(arrayMembers);
+                arrayMembers.forEach((m) => m.resetColor());
+            }, ticks*speed);
+        });
+    }
 }
