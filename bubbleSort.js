@@ -116,7 +116,7 @@ function rectangleBar(x, y, width, height, color = "royalblue")
 //---------------------     Creating the Animation      -----------------------
 const randomArray = startingArray();
 const arrayMembers = randomArray.map((v,i) => {
-    return new rectangleBar(41*i + i, 0, 40, v*40);
+    return new rectangleBar(38*i + i, 0, 38, v*40);
 });
 
 const drawAll = () => arrayMembers.forEach((m) => m.draw());
@@ -125,17 +125,20 @@ drawAll();
 let ticks = 0;
 const speed = 90;
 
-let animation = document.getElementById("start").onclick = function() {
-    bubbleSort(randomArray, (action) => {
-        ticks++;
-    
-        setTimeout(() => {
-            actionsMap[action.type] (action, arrayMembers);
-            sortingArea.clearRect(0, 0, innerWidth, innerHeight);
-            drawAll(arrayMembers);
-            arrayMembers.forEach((m) => m.resetColor());
-        }, ticks*speed);
-    });
+//---------       Bubble Sort Animation       -------------
+document.getElementById("bubbleSort").onclick = function() {
+    document.getElementById("start").onclick = function() {
+        bubbleSort(randomArray, (action) => {
+            ticks++;
+        
+            setTimeout(() => {
+                actionsMap[action.type] (action, arrayMembers);
+                sortingArea.clearRect(0, 0, innerWidth, innerHeight);
+                drawAll(arrayMembers);
+                arrayMembers.forEach((m) => m.resetColor());
+            }, ticks*speed);
+        });
+    }
 }
 
 document.getElementById("stop").onclick = function() {

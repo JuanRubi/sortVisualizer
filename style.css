@@ -45,7 +45,6 @@ h1 {
 main {
     max-width: 1800px;
     margin: 0 auto;
-    border: 1px solid blue;
 }
 
 .sortSelection {
@@ -53,8 +52,6 @@ main {
     max-width: 1000px;
     margin: 3rem auto 0 auto;    /* top right bottom left */
     display: flex;
-
-    border: 1px solid green;
 }
 
 .startStop {
@@ -79,15 +76,21 @@ canvas {
 
 /*-------------------      Button Styles       --------------------*/
 
-#bubbleSort {
+.sortAlgos {
+    width: 65%;
+    margin: 1rem 0 1rem 3rem;
+    justify-content: space-between;
+}
+
+.sortAlgo {
     font-size: 1.2rem;
     border-radius: 1rem;
 }
 
-#bubbleSort:hover,
-#bubbleSort:focus {
+.sortAlgo:hover,
+.sortAlgo:focus {
     background-color: yellow;
-    color: #002e99;
+    color: #002e99; 
 }
 
 #start {
