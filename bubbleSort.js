@@ -92,7 +92,34 @@ const selectionSort = (array, onAction) => {        // Algorithm not working????
         }
 
         //onAction({type: ACTIONS.SWAP, data: [outer, smallest]});
-        onAction({type: ACTIONS.SORT, data: outer});
+        //onAction({type: ACTIONS.SORT, data: outer});
+    }
+};
+
+
+//------------------        Insertion Sort Algorithm        -------------------
+
+const insertionSort = (array, onAction) => {
+    let counter = 1;
+    for(let outer = 1; outer < array.length; outer++)
+    {
+        let marker = array[outer];
+        let inner = outer;
+
+        while(inner > 0 && array[inner-1] >= marker)
+        {
+            onAction({type: ACTIONS.COMPARE, data: [outer, inner]});
+            array[inner] = array[inner-1];
+            onAction({type: ACTIONS.SWAP, data: [inner, inner-1]});
+            inner--;
+            outer--;
+        }
+
+        array[inner] = marker;
+        outer = counter;
+        // Sorting action messes up animation.
+        //onAction({type: ACTIONS.SORT, data: outer-1});
+        counter++;
     }
 };
 
@@ -148,7 +175,7 @@ const drawAll = () => arrayMembers.forEach((m) => m.draw());
 drawAll();
 
 let ticks = 0;
-const speed = 30;
+const speed = 130;
 
 //---------       Bubble Sort Animation       -------------
 document.getElementById("bubbleSort").onclick = function() {
@@ -176,6 +203,23 @@ document.getElementById("selectionSort").onclick = function() {
         selectionSort(randomArray, (action) => {
             ticks++;
         
+            setTimeout(() => {
+                actionsMap[action.type] (action, arrayMembers);
+                sortingArea.clearRect(0, 0, innerWidth, innerHeight);
+                drawAll(arrayMembers);
+                arrayMembers.forEach((m) => m.resetColor());
+            }, ticks*speed);
+        });
+    }
+}
+
+
+//---------     Insertion Sort Animation        -----------
+document.getElementById("insertionSort").onclick = function() {
+    document.getElementById("start").onclick = function() {
+        insertionSort(randomArray, (action) => {
+            ticks++;
+
             setTimeout(() => {
                 actionsMap[action.type] (action, arrayMembers);
                 sortingArea.clearRect(0, 0, innerWidth, innerHeight);
