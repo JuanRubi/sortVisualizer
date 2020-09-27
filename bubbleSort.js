@@ -1,4 +1,45 @@
 
+
+//-------------------       Creating the Rectangle Bars      ------------------
+
+function rectangleBar(x, y, width, height, color = "royalblue")
+{
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
+    this.color = color;
+
+    // Drawing the rectangle.
+    this.draw = () => {
+        sortingArea.fillStyle = this.color;
+        sortingArea.fillRect(this.x, this.y, this.width, this.height);
+    };
+
+    this.resetColor = () => this.setColor("royalblue");
+
+    this.setColor = (color) => {
+        if(!this.isSorted())  // If not sorted, then still royalblue.
+        {
+            this.color = color;
+        }
+    };
+
+    this.isSorted = () => this.color === "green"; // If sorted, then green.
+    this.sorted = () => (this.color = "green");
+
+    this.setValue = (v, color) => {
+        if(!this.isSorted())
+        {
+            this.height = v;
+            this.setColor(color);
+        }
+    };
+
+    this.getValue = (v) => this.height;
+}
+
+
 //---------------------     Getting our Canvas Element      -------------------
 
 const canvas = document.querySelector("canvas"); // Gets first matching tag.
@@ -75,11 +116,11 @@ const bubbleSort = (array, onAction) => {
 
 //------------------        Selection Sort Algorithm        -------------------
 
-const selectionSort = (array, onAction) => {        // Algorithm not working????
-                                                    // Fails to detect smaller rectangle at times.
+const selectionSort = (array, onAction) => {
+                                            
     for(let outer = 0; outer < array.length; outer++)
     {
-        let smallest = outer;
+        var smallest = outer;
 
         for(let inner = outer + 1; inner < array.length; inner++)
         {   
@@ -87,12 +128,14 @@ const selectionSort = (array, onAction) => {        // Algorithm not working????
             if(array[smallest] > array[inner])
             {
                 smallest = inner;
-                onAction({type: ACTIONS.SWAP, data: [outer, smallest]});
             }
         }
 
-        //onAction({type: ACTIONS.SWAP, data: [outer, smallest]});
-        //onAction({type: ACTIONS.SORT, data: outer});
+        let temp = array[outer];
+        array[outer] = array[smallest];
+        array[smallest] = temp;
+        onAction({type: ACTIONS.SWAP, data: [outer, smallest]});
+        onAction({type: ACTIONS.SORT, data: outer});
     }
 };
 
@@ -117,51 +160,15 @@ const insertionSort = (array, onAction) => {
 
         array[inner] = marker;
         outer = counter;
-        // Sorting action messes up animation.
-        //onAction({type: ACTIONS.SORT, data: outer-1});
         counter++;
     }
+
+    // Need to perform sort action separately since none are sorted till the end.
+    for(let i = 0; i < array.length; i++)
+    {
+        onAction({type: ACTIONS.SORT, data: i});
+    }
 };
-
-
-//-------------------       Creating the Rectangle Bars      ------------------
-
-function rectangleBar(x, y, width, height, color = "royalblue")
-{
-    this.x = x;
-    this.y = y;
-    this.width = width;
-    this.height = height;
-    this.color = color;
-
-    // Drawing the rectangle.
-    this.draw = () => {
-        sortingArea.fillStyle = this.color;
-        sortingArea.fillRect(this.x, this.y, this.width, this.height);
-    };
-
-    this.resetColor = () => this.setColor("royalblue");
-
-    this.setColor = (color) => {
-        if(!this.isSorted())  // If not sorted, then still royalblue.
-        {
-            this.color = color;
-        }
-    };
-
-    this.isSorted = () => this.color === "green"; // If sorted, then green.
-    this.sorted = () => (this.color = "green");
-
-    this.setValue = (v, color) => {
-        if(!this.isSorted())
-        {
-            this.height = v;
-            this.setColor(color);
-        }
-    };
-
-    this.getValue = (v) => this.height;
-}
 
 
 //---------------------     Creating the Animations      ----------------------
@@ -175,7 +182,7 @@ const drawAll = () => arrayMembers.forEach((m) => m.draw());
 drawAll();
 
 let ticks = 0;
-const speed = 130;
+const speed = 30;
 
 //---------       Bubble Sort Animation       -------------
 document.getElementById("bubbleSort").onclick = function() {
