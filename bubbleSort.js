@@ -1,5 +1,4 @@
 
-
 //-------------------       Creating the Rectangle Bars      ------------------
 
 function rectangleBar(x, y, width, height, color = "royalblue")
@@ -175,16 +174,21 @@ const insertionSort = (array, onAction) => {
 
 const randomArray = startingArray();
 const arrayMembers = randomArray.map((v,i) => {
-    return new rectangleBar(38*i + i, 0, 38, v*40);
+
+    // Adjusting bar width and height based on window size.
+    let barWidth = window.innerWidth/29.7;
+    let barHeight = v*window.innerHeight/32;
+
+    return new rectangleBar(barWidth*i+i+4, 0, barWidth, barHeight);
 });
 
 const drawAll = () => arrayMembers.forEach((m) => m.draw());
 drawAll();
 
 let ticks = 0;
-const speed = 30;
+const speed = 40;
 
-//---------       Bubble Sort Animation       -------------
+//---------------       Bubble Sort Animation       -----------------
 document.getElementById("bubbleSort").onclick = function() {
     document.getElementById("start").onclick = function() {
         bubbleSort(randomArray, (action) => {
@@ -204,7 +208,7 @@ document.getElementById("bubbleSort").onclick = function() {
 //     clearTimeout(); // Needs fixing.
 //}
 
-//---------     Selection Sort Animation        -----------
+//--------------     Selection Sort Animation        ----------------
 document.getElementById("selectionSort").onclick = function() {
     document.getElementById("start").onclick = function() {
         selectionSort(randomArray, (action) => {
@@ -221,7 +225,7 @@ document.getElementById("selectionSort").onclick = function() {
 }
 
 
-//---------     Insertion Sort Animation        -----------
+//--------------     Insertion Sort Animation        ----------------
 document.getElementById("insertionSort").onclick = function() {
     document.getElementById("start").onclick = function() {
         insertionSort(randomArray, (action) => {
