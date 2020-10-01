@@ -173,62 +173,70 @@ const insertionSort = (array, onAction) => {
 //--------------------      Quick Sort Algorithm        -----------------------
 
 const quickSort = (array, onAction) => {
+    recursiveQuickSort(array, 0, array.length-1);
 
+    // Need to perform sort action separately since none are sorted till the end.
+    for(let i = 0; i < array.length; i++)
+    {
+        onAction({type: ACTIONS.SORT, data: i});
+    }
+
+    function partitionArray(array, leftIndex, rightIndex, pivot)
+    {
+        let leftPartition = leftIndex - 1;
+        let rightPartition = rightIndex;
+
+        while(true)
+        {
+            // Find bigger value than pivot.
+            while(array[++leftPartition] < pivot);
+
+            // Find smaller value than pivot.
+            while(rightPartition > 0 && array[--rightPartition] > pivot);
+
+            if(leftPartition >= rightPartition)
+            {
+                break;      // If pointers cross, then done.
+            }
+            else            // Else swap the elements.
+            {
+                onAction({type: ACTIONS.SWAP, data: [leftPartition, rightPartition]});
+                let temp = array[leftPartition];    
+                array[leftPartition] = array[rightPartition];
+                array[rightPartition] = temp;
+            }
+        } // End of while(true).
+
+        // Restore the pivot.
+        onAction({type: ACTIONS.SWAP, data: [leftPartition, rightIndex]});
+        let temp2 = array[leftPartition];
+        array[leftPartition] = array[rightIndex];
+        array[rightIndex] = temp2;
+        
+        // Return pivot's location.
+        return leftPartition;
+    } // End of partitionArray().
+
+    function recursiveQuickSort(array, leftIndex, rightIndex)
+    {
+        if(rightIndex - leftIndex <= 0)
+        {
+            return;
+        }
+        else
+        {
+            let pivot = array[rightIndex];
+
+            // Set the partition range.
+            let partition = partitionArray(array, leftIndex, rightIndex, pivot);
+
+            // Sort left side.
+            recursiveQuickSort(array, leftIndex, partition-1);
+            // Sort right side.
+            recursiveQuickSort(array, partition+1, rightIndex);
+        }
+    }
 };
-
-function partitionArray(array, leftIndex, rightIndex, pivot)
-{
-    let leftPartition = leftIndex - 1;
-    let rightPartition = rightIndex;
-
-    while(true)
-    {
-        // Find bigger value than pivot.
-        while(array[++leftPartition] < pivot);
-
-        // Find smaller value than pivot.
-        while(rightPartition > 0 && array[--rightPartition] > pivot);
-
-        if(leftPartition >= rightPartition)
-        {
-            break;      // If pointers cross, then done.
-        }
-        else            // Else swap the elements.
-        {
-            let temp = array[leftPartition];    
-            array[leftPartition] = array[rightPartition];
-            array[rightPartition] = temp;
-        }
-    } // End of while(true).
-
-    // Restore the pivot.
-    let temp2 = array[leftPartition];
-    array[leftPartition] = array[rightIndex];
-    array[rightIndex] = temp2;
-    
-    // Return pivot's location.
-    return leftPartition;
-} // End of partitionArray().
-
-function recursiveQuickSort(array, leftIndex, rightIndex)
-{
-    if(rightIndex - leftIndex <= 0)
-    {
-        return;
-    }
-    else
-    {
-        let pivot = array[rightIndex];
-
-        // Set the partition range.
-        let partition = partitionArray(array, leftIndex, rightIndex, pivot);
-
-        // Sort left side.
-        recursiveQuickSort(array, leftIndex, partition-1);
-        // Sort right side.
-        recursiveQuickSort(array, partition+1, rightIndex);
-    }
-}
 
 
 //---------------------     Creating the Animations      ----------------------
@@ -290,6 +298,23 @@ document.getElementById("selectionSort").onclick = function() {
 document.getElementById("insertionSort").onclick = function() {
     document.getElementById("start").onclick = function() {
         insertionSort(randomArray, (action) => {
+            ticks++;
+
+            setTimeout(() => {
+                actionsMap[action.type] (action, arrayMembers);
+                sortingArea.clearRect(0, 0, innerWidth, innerHeight);
+                drawAll(arrayMembers);
+                arrayMembers.forEach((m) => m.resetColor());
+            }, ticks*speed);
+        });
+    }
+}
+
+
+//----------------     Quick Sort Animation        ------------------
+document.getElementById("quickSort").onclick = function() {
+    document.getElementById("start").onclick = function() {
+        quickSort(randomArray, (action) => {
             ticks++;
 
             setTimeout(() => {
