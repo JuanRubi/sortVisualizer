@@ -170,6 +170,67 @@ const insertionSort = (array, onAction) => {
 };
 
 
+//--------------------      Quick Sort Algorithm        -----------------------
+
+const quickSort = (array, onAction) => {
+
+};
+
+function partitionArray(array, leftIndex, rightIndex, pivot)
+{
+    let leftPartition = leftIndex - 1;
+    let rightPartition = rightIndex;
+
+    while(true)
+    {
+        // Find bigger value than pivot.
+        while(array[++leftPartition] < pivot);
+
+        // Find smaller value than pivot.
+        while(rightPartition > 0 && array[--rightPartition] > pivot);
+
+        if(leftPartition >= rightPartition)
+        {
+            break;      // If pointers cross, then done.
+        }
+        else            // Else swap the elements.
+        {
+            let temp = array[leftPartition];    
+            array[leftPartition] = array[rightPartition];
+            array[rightPartition] = temp;
+        }
+    } // End of while(true).
+
+    // Restore the pivot.
+    let temp2 = array[leftPartition];
+    array[leftPartition] = array[rightIndex];
+    array[rightIndex] = temp2;
+    
+    // Return pivot's location.
+    return leftPartition;
+} // End of partitionArray().
+
+function recursiveQuickSort(array, leftIndex, rightIndex)
+{
+    if(rightIndex - leftIndex <= 0)
+    {
+        return;
+    }
+    else
+    {
+        let pivot = array[rightIndex];
+
+        // Set the partition range.
+        let partition = partitionArray(array, leftIndex, rightIndex, pivot);
+
+        // Sort left side.
+        recursiveQuickSort(array, leftIndex, partition-1);
+        // Sort right side.
+        recursiveQuickSort(array, partition+1, rightIndex);
+    }
+}
+
+
 //---------------------     Creating the Animations      ----------------------
 
 const randomArray = startingArray();
