@@ -119,7 +119,7 @@ const selectionSort = (array, onAction) => {
                                             
     for(let outer = 0; outer < array.length; outer++)
     {
-        var smallest = outer;
+        let smallest = outer;
 
         for(let inner = outer + 1; inner < array.length; inner++)
         {   
