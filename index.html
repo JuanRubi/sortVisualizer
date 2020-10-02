@@ -9,6 +9,7 @@
 
 <body>
     <header>
+        <!--------------------        Navigation Bar      -------------------->
         <nav>
             <h1>Sorting Visualizer</h1>
 
@@ -19,10 +20,13 @@
         </nav>
     </header>
 
+    <!------------------------      Main Section        ---------------------->
     <main>
         <h3 class="warning">Update: Merge sort doesn't work for now. After a sort is done
             the window needs to be refreshed. Update coming soon.
         </h3>
+
+        <!----------------      Sort Selection Navigaiton       -------------->
         <div class="sortSelection">
             <div>
                 <p>Select a sort algorithm to visualize: </p>
@@ -37,10 +41,12 @@
             </div>
         </div>
 
+        <!-------------------        Sorting Canvas      --------------------->
         <div id="sortContainer">
             <canvas id="sortArea"></canvas>
         </div>
 
+        <!----------------------     Start/Stop      ------------------------->
         <div class="startStop">
             <button id="start">Start Sort</button>
             <button id="stop">Stop Sort</button>

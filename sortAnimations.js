@@ -170,6 +170,75 @@ const insertionSort = (array, onAction) => {
 };
 
 
+//------------------        Merge Sort Algorithm        -----------------------
+
+const mergeSort = (array, onAction) => {
+    const workspace = new Array(array.length);
+    recursiveMergeSort(array, workspace, 0, array.length-1);
+
+    for(let i = 0; i < workspace.length; i++)
+    {
+        onAction({type: ACTIONS.SORT, data: i});
+    }
+
+    function merge(array, workspace, lowerPortion, upperPortion, upperBound)
+    {
+        let j = 0;
+        let lowerBound = lowerPortion;
+        let midpoint = upperPortion - 1;
+        let numOfItems = upperBound - lowerBound + 1;
+
+        while(lowerPortion <= midpoint && upperPortion <= upperBound)
+        {
+            if( array[lowerPortion] < array[upperPortion])
+            {
+                workspace[j++] = array[lowerPortion++];
+            }
+            else
+            {
+                workspace[j++] = array[upperPortion];
+            }
+        }
+
+        while(lowerPortion <= mid)
+        {
+            workspace[j++] = array[lowerPortion++];
+        }
+
+        while(upperPortion <= upperBound)
+        {
+            workspace[j++] = array[upperPortion++];
+        }
+
+        for(j=0; j < numOfItems; j++)
+        {
+            array[lowerBound+j] = workspace[j];
+        }
+    } // End of merge().
+
+    function recursiveMergeSort(array, workspace, lowerBound, upperBound)
+    {
+        if(lowerBound == upperBound)
+        {
+            return; // Array of only 1 element.
+        }
+        else
+        {
+            let midpoint = (lowerBound + upperBound)/2;
+
+            // Sort lower half.
+            recursiveMergeSort(array, workspace, lowerBound, midpoint);
+
+            // Sort upper half.
+            recursiveMergeSort(array, workspace, midpoint+1, upperBound);
+
+            // Merge the two halfs.
+            merge(array, workspace, lowerBound, midpoint+1, upperBound);
+        }
+    } // End of recursiveMergeSort().
+};
+
+
 //--------------------      Quick Sort Algorithm        -----------------------
 
 const quickSort = (array, onAction) => {
@@ -181,6 +250,7 @@ const quickSort = (array, onAction) => {
         onAction({type: ACTIONS.SORT, data: i});
     }
 
+    // Function that partitions the array.
     function partitionArray(array, leftIndex, rightIndex, pivot)
     {
         let leftPartition = leftIndex - 1;
@@ -217,6 +287,7 @@ const quickSort = (array, onAction) => {
         return leftPartition;
     } // End of partitionArray().
 
+    // Function that sorts the array recursively.
     function recursiveQuickSort(array, leftIndex, rightIndex)
     {
         if(rightIndex - leftIndex <= 0)
@@ -298,6 +369,23 @@ document.getElementById("selectionSort").onclick = function() {
 document.getElementById("insertionSort").onclick = function() {
     document.getElementById("start").onclick = function() {
         insertionSort(randomArray, (action) => {
+            ticks++;
+
+            setTimeout(() => {
+                actionsMap[action.type] (action, arrayMembers);
+                sortingArea.clearRect(0, 0, innerWidth, innerHeight);
+                drawAll(arrayMembers);
+                arrayMembers.forEach((m) => m.resetColor());
+            }, ticks*speed);
+        });
+    }
+}
+
+
+//----------------     Merge Sort Animation        ------------------
+document.getElementById("mergeSort").onclick = function() {
+    document.getElementById("start").onclick = function() {
+        mergeSort(randomArray, (action) => {
             ticks++;
 
             setTimeout(() => {
