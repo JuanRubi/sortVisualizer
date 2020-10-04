@@ -13,12 +13,17 @@ body {
     margin: 0;
 }
 
-
-/*---------------       Navigation Styles       -------------------*/
-
 header {
     background-color: #EEEEEE;
 }
+
+main {
+    max-width: 1800px;
+    margin: 0 auto;
+}
+
+
+/*---------------       Navigation Styles       -------------------*/
 
 nav {
     height: 10rem;
@@ -47,11 +52,6 @@ h1 {
 
 
 /*---------------------     Main Styles     -----------------------*/
-
-main {
-    max-width: 1800px;
-    margin: 0 auto;
-}
 
 .sortSelection {
     height: 3rem;

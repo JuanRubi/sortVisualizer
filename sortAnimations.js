@@ -130,12 +130,18 @@ const selectionSort = (array, onAction) => {
             }
         }
 
-        let temp = array[outer];
-        array[outer] = array[smallest];
-        array[smallest] = temp;
-        onAction({type: ACTIONS.SWAP, data: [outer, smallest]});
+        if(smallest != outer)
+        {
+            let temp = array[outer];
+            array[outer] = array[smallest];
+            array[smallest] = temp;
+            onAction({type: ACTIONS.SWAP, data: [outer, smallest]});
+        }
+
         onAction({type: ACTIONS.SORT, data: outer});
     }
+
+    return array;
 };
 
 
@@ -167,6 +173,8 @@ const insertionSort = (array, onAction) => {
     {
         onAction({type: ACTIONS.SORT, data: i});
     }
+
+    return array;
 };
 
 
@@ -242,7 +250,7 @@ const mergeSort = (array, onAction) => {
 //--------------------      Quick Sort Algorithm        -----------------------
 
 const quickSort = (array, onAction) => {
-    recursiveQuickSort(array, 0, array.length-1);
+    recursiveQuickSort(0, array.length-1);
 
     // Need to perform sort action separately since none are sorted till the end.
     for(let i = 0; i < array.length; i++)
@@ -251,7 +259,7 @@ const quickSort = (array, onAction) => {
     }
 
     // Function that partitions the array.
-    function partitionArray(array, leftIndex, rightIndex, pivot)
+    function partitionArray(leftIndex, rightIndex, pivot)
     {
         let leftPartition = leftIndex - 1;
         let rightPartition = rightIndex;
@@ -288,7 +296,7 @@ const quickSort = (array, onAction) => {
     } // End of partitionArray().
 
     // Function that sorts the array recursively.
-    function recursiveQuickSort(array, leftIndex, rightIndex)
+    function recursiveQuickSort(leftIndex, rightIndex)
     {
         if(rightIndex - leftIndex <= 0)
         {
@@ -299,14 +307,16 @@ const quickSort = (array, onAction) => {
             let pivot = array[rightIndex];
 
             // Set the partition range.
-            let partition = partitionArray(array, leftIndex, rightIndex, pivot);
+            let partition = partitionArray(leftIndex, rightIndex, pivot);
 
             // Sort left side.
-            recursiveQuickSort(array, leftIndex, partition-1);
+            recursiveQuickSort(leftIndex, partition-1);
             // Sort right side.
-            recursiveQuickSort(array, partition+1, rightIndex);
+            recursiveQuickSort(partition+1, rightIndex);
         }
     }
+
+    return array;
 };
 
 
@@ -414,3 +424,8 @@ document.getElementById("quickSort").onclick = function() {
         });
     }
 }
+
+let testArray = [1,2,4,3,5,7,6];
+
+let result = quickSort(testArray);
+console.log(result);
