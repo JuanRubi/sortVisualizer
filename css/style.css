@@ -1,20 +1,21 @@
-
 /*----- Warning     -------*/
 .warning {
     color: red;
     text-align: center;
 }
 
-/*--------------------       Master Styles       ------------------*/
+/*---------------       Master Styles       -------------*/
 
 body {
     font-family: Arial, sans-serif;
     font-size: 1.2rem;
     margin: 0;
+    background-color: #eeeeee;
 }
 
 header {
-    background-color: #EEEEEE;
+    height: 10rem;
+    background-color: #dddddd;
 }
 
 main {
@@ -23,12 +24,13 @@ main {
 }
 
 
-/*---------------       Navigation Styles       -------------------*/
+/*------------       Navigation Styles       ------------*/
 
 nav {
-    height: 10rem;
     max-width: 1000px;
     margin: 0 auto;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;  
@@ -36,7 +38,7 @@ nav {
 
 h1 {
     font-size: 2rem;
-    color: navy;
+    color: #00115a;
 }
 
 .navLink {
@@ -51,12 +53,12 @@ h1 {
 }
 
 
-/*---------------------     Main Styles     -----------------------*/
+/*-------------     index Page Styles     ---------------*/
 
 .sortSelection {
     height: 3rem;
     max-width: 1000px;
-    margin: 3rem auto 0 auto;    /* top right bottom left */
+    margin: 3rem auto 0 auto;   /* top right bottom left */
     display: flex;
 }
 
@@ -64,7 +66,7 @@ h1 {
     text-align: center;
 }
 
-/*---------------------       Sort Canvas       -------------------*/
+/*----------       Sort Canvas       ----------*/
 
 #sortContainer {
     max-width: 1200px;
@@ -74,12 +76,12 @@ h1 {
 canvas {
     width: 100%;
     height: 500px;
-    background-color: #ececec;
-    border: 1px solid #002e99;
+    background-color: #dddddd;
+    border: 1px solid #002270;
 }
 
 
-/*-------------------      Button Styles       --------------------*/
+/*----------      Button Styles       ---------*/
 
 .sortAlgos {
     width: 65%;
@@ -95,7 +97,7 @@ canvas {
 .sortAlgo:hover,
 .sortAlgo:focus {
     background-color: yellow;
-    color: #002e99; 
+    color: #0038bb; 
 }
 
 #start {
@@ -109,13 +111,39 @@ canvas {
     color: #ffffff;
 }
 
-#stop {
+#newSort {
     font-size: 1.3rem;
     border-radius: 1rem;
 }
 
-#stop:hover,
-#stop:focus {
+#newSort:hover,
+#newSort:focus {
     background-color: red;
     color: #ffffff;
 }
+
+
+/*---------      sortAlgorithms Page Styles     ---------*/
+
+h3 {
+    color: #002e99;
+    margin: 0;
+    padding-top: 2rem;
+}
+
+.algorithms {
+    font-size: 1.1rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.algorithm-description {
+    color: #202020;
+}
+
+.algorithm-image {
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+

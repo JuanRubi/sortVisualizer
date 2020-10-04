@@ -354,9 +354,9 @@ document.getElementById("bubbleSort").onclick = function() {
     }
 }
 
-// document.getElementById("stop").onclick = function() {
-//     clearTimeout(); // Needs fixing.
-//}
+document.getElementById("newSort").onclick = function() {
+    location.reload();
+}
 
 //--------------     Selection Sort Animation        ----------------
 document.getElementById("selectionSort").onclick = function() {
