@@ -181,69 +181,62 @@ const insertionSort = (array, onAction) => {
 //------------------        Merge Sort Algorithm        -----------------------
 
 const mergeSort = (array, onAction) => {
-    const workspace = new Array(array.length);
-    recursiveMergeSort(array, workspace, 0, array.length-1);
 
-    for(let i = 0; i < workspace.length; i++)
+    if(array.length < 2)    // 1 Element array.
+    {
+        return array;
+    }
+
+    const midpoint = Math.floor(array.length/2);
+    const leftPortion = array.slice(0,midpoint);
+    const rightPortion = array.slice(midpoint);
+    
+    function merge(left, right)
+    {
+        let sorted = [];
+        let i = 0;
+        let j = 0;
+        
+        if(left != null && right != null)
+        {
+            while(i < left.length && j < right.length)
+            {
+                if(left[i] < right[j])
+                {
+                    sorted.push(left[i]);
+                    i++;
+                }
+                else
+                {
+                    sorted.push(right[j]);
+                    j++;
+                }
+            }
+        
+            while(i < left.length)
+            {
+                sorted.push(left[i]);
+                i++;  
+            }
+        
+            while(j < right.length)
+            {
+                sorted.push(right[j]);
+                j++;
+            }
+        }
+    
+        return sorted;
+    };
+
+    let result = merge(mergeSort(leftPortion), mergeSort(rightPortion));
+
+    // Need to perform sort action separately since none are sorted till the end.
+    for(let i = 0; i < array.length; i++)
     {
         onAction({type: ACTIONS.SORT, data: i});
     }
-
-    function merge(array, workspace, lowerPortion, upperPortion, upperBound)
-    {
-        let j = 0;
-        let lowerBound = lowerPortion;
-        let midpoint = upperPortion - 1;
-        let numOfItems = upperBound - lowerBound + 1;
-
-        while(lowerPortion <= midpoint && upperPortion <= upperBound)
-        {
-            if( array[lowerPortion] < array[upperPortion])
-            {
-                workspace[j++] = array[lowerPortion++];
-            }
-            else
-            {
-                workspace[j++] = array[upperPortion];
-            }
-        }
-
-        while(lowerPortion <= mid)
-        {
-            workspace[j++] = array[lowerPortion++];
-        }
-
-        while(upperPortion <= upperBound)
-        {
-            workspace[j++] = array[upperPortion++];
-        }
-
-        for(j=0; j < numOfItems; j++)
-        {
-            array[lowerBound+j] = workspace[j];
-        }
-    } // End of merge().
-
-    function recursiveMergeSort(array, workspace, lowerBound, upperBound)
-    {
-        if(lowerBound == upperBound)
-        {
-            return; // Array of only 1 element.
-        }
-        else
-        {
-            let midpoint = (lowerBound + upperBound)/2;
-
-            // Sort lower half.
-            recursiveMergeSort(array, workspace, lowerBound, midpoint);
-
-            // Sort upper half.
-            recursiveMergeSort(array, workspace, midpoint+1, upperBound);
-
-            // Merge the two halfs.
-            merge(array, workspace, lowerBound, midpoint+1, upperBound);
-        }
-    } // End of recursiveMergeSort().
+    return result;
 };
 
 
@@ -424,8 +417,3 @@ document.getElementById("quickSort").onclick = function() {
         });
     }
 }
-
-let testArray = [1,2,4,3,5,7,6];
-
-let result = quickSort(testArray);
-console.log(result);
