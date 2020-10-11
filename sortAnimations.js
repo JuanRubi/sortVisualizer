@@ -187,18 +187,31 @@ const mergeSort = (array, onAction) => {
         return array;
     }
 
+    // onAction WORKS HERE.
+    // Need to perform sort action separately since none are sorted till the end.
+    for(let k = 0; k < array.length; k++)
+    {
+        onAction({type: ACTIONS.SORT, data: k});
+    }
+
     const midpoint = Math.floor(array.length/2);
     const leftPortion = array.slice(0,midpoint);
     const rightPortion = array.slice(midpoint);
-    
+
+    array = merge(mergeSort(leftPortion), mergeSort(rightPortion));
+
+    console.log(array); // Array is sorted! 
+
     function merge(left, right)
     {
+        //Maybe new array doesn't have onAction ability?
         let sorted = [];
         let i = 0;
         let j = 0;
         
         if(left != null && right != null)
         {
+            onAction({type: ACTIONS.COMPARE, data: [i,j]});
             while(i < left.length && j < right.length)
             {
                 if(left[i] < right[j])
@@ -227,17 +240,64 @@ const mergeSort = (array, onAction) => {
         }
     
         return sorted;
-    };
-
-    let result = merge(mergeSort(leftPortion), mergeSort(rightPortion));
-
-    // Need to perform sort action separately since none are sorted till the end.
-    for(let i = 0; i < array.length; i++)
-    {
-        onAction({type: ACTIONS.SORT, data: i});
     }
-    return result;
+
+    //let result = merge(mergeSort(leftPortion), mergeSort(rightPortion));
+
+    return array;
 };
+
+
+//--------------------    Second Merge Sort Algorithm     ---------------------
+
+const unsortedArray = [31,27,28,42,13,8,11,30,17];
+
+const mergeSort2 = (arr, onAction) => {
+
+    //onAction({type: ACTIONS.COMPARE, data: [i++, i+2]})
+
+    let result = recursiveMergeSort2(arr);
+
+    function recursiveMergeSort2(subArray)
+    {
+        if(subArray.length <= 1)
+        {
+            return subArray;
+        }
+
+        let mid = Math.floor(subArray.length/2);
+        let left = recursiveMergeSort2(subArray.slice(0, mid));
+        let right = recursiveMergeSort2(subArray.slice(mid));
+
+        const merge2 = (arr1, arr2) => {
+            let sorted = [];
+            var i = 0;
+        
+            while(arr1.length && arr2.length)
+            {
+                //onAction({type: ACTIONS.COMPARE, data: [i++, i+2]})
+                if(arr1[0] < arr2[0])
+                {
+                    sorted.push(arr1.shift());
+                }
+                else
+                {
+                    sorted.push(arr2.shift());
+                }
+            }
+        
+            return sorted.concat(arr1.slice().concat(arr2.slice()));
+        }
+
+        return merge2(left, right);
+    }
+
+    console.log(arr);
+    console.log(result);
+    //onAction({type: ACTIONS.COMPARE, data: [i++, i+10]})
+};
+
+//console.log(mergeSort2(unsortedArray));
 
 
 //--------------------      Quick Sort Algorithm        -----------------------
@@ -388,7 +448,7 @@ document.getElementById("insertionSort").onclick = function() {
 //----------------     Merge Sort Animation        ------------------
 document.getElementById("mergeSort").onclick = function() {
     document.getElementById("start").onclick = function() {
-        mergeSort(randomArray, (action) => {
+        mergeSort2(randomArray, (action) => {
             ticks++;
 
             setTimeout(() => {
@@ -407,6 +467,7 @@ document.getElementById("quickSort").onclick = function() {
     document.getElementById("start").onclick = function() {
         quickSort(randomArray, (action) => {
             ticks++;
+            let speed = 120;
 
             setTimeout(() => {
                 actionsMap[action.type] (action, arrayMembers);
