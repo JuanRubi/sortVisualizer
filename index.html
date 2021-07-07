@@ -1,56 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css" />
     <title>Sorting Visualizer</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <header>
-        <!--------------------        Navigation Bar      -------------------->
-        <nav>
-            <h1>Sorting Visualizer</h1>
+      <!--------------------        Navigation Bar      -------------------->
+      <nav>
+        <h1>Sorting Visualizer</h1>
 
-            <div class="navLinks">
-                <a class="navLink active-navLink" href="index.html">Home</a>
-                <a class="navLink" href="sortAlgorithms.html">Sort Algorithms</a>    
-            </div>
-        </nav>
+        <div class="navLinks">
+          <a class="navLink active-navLink" href="index.html">Home</a>
+          <a class="navLink" href="sortAlgorithms.html">Sort Algorithms</a>
+        </div>
+      </nav>
     </header>
 
     <!------------------------      Main Section        ---------------------->
     <main>
-        <h3 class="warning">Update: Merge sort doesn't work for now. Update coming soon.</h3>
+      <h3 class="warning">Update: Merge sort doesn't work.</h3>
 
-        <!----------------      Sort Selection Navigaiton       -------------->
-        <div class="sortSelection">
-            <div>
-                <p>Select a sort algorithm to visualize: </p>
-            </div>
-
-            <div class="sortAlgos">
-                <button class="sortAlgo" id="bubbleSort">Bubble Sort</button>
-                <button class="sortAlgo" id="selectionSort">Selection Sort</button>
-                <button class="sortAlgo" id="insertionSort">Insertion Sort</button>
-                <button class="sortAlgo" id="mergeSort">Merge Sort</button>
-                <button class="sortAlgo" id="quickSort">Quick Sort</button>
-            </div>
+      <!----------------      Sort Selection Navigaiton       -------------->
+      <div class="sortSelection">
+        <div>
+          <p>Select a sort algorithm to visualize:</p>
         </div>
 
-        <!-------------------        Sorting Canvas      --------------------->
-        <div id="sortContainer">
-            <canvas id="sortArea"></canvas>
+        <div class="sortAlgos">
+          <button class="sortAlgo" id="bubbleSort">Bubble Sort</button>
+          <button class="sortAlgo" id="selectionSort">Selection Sort</button>
+          <button class="sortAlgo" id="insertionSort">Insertion Sort</button>
+          <button class="sortAlgo" id="mergeSort">Merge Sort</button>
+          <button class="sortAlgo" id="quickSort">Quick Sort</button>
         </div>
+      </div>
 
-        <!----------------------     Start/Stop      ------------------------->
-        <div class="startStop">
-            <button id="start">Start Sort</button>
-            <button id="newSort">New Sort</button>
-        </div>
+      <!-------------------        Sorting Canvas      --------------------->
+      <div id="sortContainer">
+        <canvas id="sortArea"></canvas>
+      </div>
+
+      <!----------------------     Start/Stop      ------------------------->
+      <div class="startStop">
+        <button id="start">Start Sort</button>
+        <button id="newSort">New Sort</button>
+      </div>
     </main>
     <!---------------------     End of Main Section     ---------------------->
     <script src="sortAnimations.js"></script>
-</body>
+  </body>
 </html>

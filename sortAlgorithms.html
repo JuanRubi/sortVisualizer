@@ -1,101 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css" />
     <title>Sorting Visualizer</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <header>
-        <!--------------------        Navigation Bar      -------------------->
-        <nav>
-            <h1>Sorting Visualizer</h1>
+      <!--------------------        Navigation Bar      -------------------->
+      <nav>
+        <h1>Sorting Visualizer</h1>
 
-            <div class="navLinks">
-                <a class="navLink" href="index.html">Home</a>
-                <a class="navLink active-navLink" href="sortAlgorithms.html">Sort Algorithms</a>    
-            </div>
-        </nav>
+        <div class="navLinks">
+          <a class="navLink" href="index.html">Home</a>
+          <a class="navLink active-navLink" href="sortAlgorithms.html"
+            >Sort Algorithms</a
+          >
+        </div>
+      </nav>
     </header>
-    
+
     <!------------------------      Main Section        ---------------------->
     <main>
-        <!-----------------        Algorithms Container      ----------------->
-        <div class="algorithms">
-            <!------------------        Bubble Sort     ---------------------->
-            <div class="algorithm">
-                <h3>Bubble Sort</h3>
-                <p class="algorithm-description">The bubble sort is one of the three simple sorting
-                   algorithms that we are introduce to. The algorithm consists of checking two side
-                   by side elements at a time and swapping them if the left element is bigger than
-                   the right element. At the end of each pass the largest element will be sorted on
-                   the rightmost unsorted index in the array. 
-                </p>
+      <!-----------------        Algorithms Container      ----------------->
+      <div class="algorithms">
+        <!------------------        Bubble Sort     ---------------------->
+        <div class="algorithm">
+          <h3>Bubble Sort</h3>
+          <p class="algorithm-description">
+            The bubble sort is one of the three simple sorting algorithms that
+            we are introduce to. The algorithm consists of checking two side by
+            side elements at a time and swapping them if the left element is
+            bigger than the right element. At the end of each pass the largest
+            element will be sorted on the rightmost unsorted index in the array.
+          </p>
 
-                <div class="algorithm-image">
-                    <img src="images/bubbleSort.png" alt="">
-                </div>
-            </div>
-
-            <!-------------------       Selection Sort      ------------------>
-            <div class="algorithm">
-                <h3>Selection Sort</h3>
-                <p class="algorithm-description">The selection sort algorithm is the second simple
-                   sorting algorithm. The algorithm has a pointer that points to the leftmost unsorted
-                   index. In each pass the smallest element index is updated and at the end of the
-                   array we swap the value at the pointer with the value at the smallest element index. 
-                </p>
-
-                <div class="algorithm-image">
-                    <img src="images/selectionSort.png" alt="">
-                </div>
-            </div>
-
-            <!-------------------     Insertion Sort      -------------------->
-            <div cass="algorithm">
-                <h3>Insertion Sort</h3>
-                <p class="algorithm-description">The insertion sort algorithm is the last simple
-                   sorting algorithm. For this algorithm we have a pointer that points to the first
-                   unsorted element in the array (the second element at the start). We then compare
-                   the value at the pointer with the element to its left and swap them if the left
-                   element is larger. This comparing is repeated until we encounter an element that
-                   is smaller than the current element at hand. The pointer is then shifted to the
-                   right once and the process is repeated until our pointer points to the last element.
-                </p>
-
-                <div class="algorithm-image">
-                    <img src="images/insertionSort.png" alt="">
-                </div>
-            </div>
-
-            <!----------------------      Merge Sort      -------------------->
-            <!--<div class="algorithm">
-                <h3>Merge Sort</h3>
-                <p class="algorithm-description">
-                    Needs description.
-                </p>
-
-                <div class="algorithm-image">
-                    Needs image.
-                </div>
-            </div> -->
-
-            <!----------------------      Quick Sort      -------------------->
-            <div class="algorithm">
-                <h3>Quick Sort</h3>
-                <p class="algorithm-description">
-                    Needs description.
-                </p>
-
-                <div class="algorithm-image">
-                    <img src="images/quickSort.png" alt="">
-                </div>
-            </div>
+          <div class="algorithm-image">
+            <img src="images/bubbleSort.png" alt="" />
+          </div>
         </div>
+
+        <!-------------------       Selection Sort      ------------------>
+        <div class="algorithm">
+          <h3>Selection Sort</h3>
+          <p class="algorithm-description">
+            The selection sort algorithm is the second simple sorting algorithm.
+            The algorithm has a pointer that points to the leftmost unsorted
+            index. In each pass the smallest element index is updated and at the
+            end of the array we swap the value at the pointer with the value at
+            the smallest element index.
+          </p>
+
+          <div class="algorithm-image">
+            <img src="images/selectionSort.png" alt="" />
+          </div>
+        </div>
+
+        <!-------------------     Insertion Sort      -------------------->
+        <div cass="algorithm">
+          <h3>Insertion Sort</h3>
+          <p class="algorithm-description">
+            The insertion sort algorithm is the last simple sorting algorithm.
+            For this algorithm we have a pointer that points to the first
+            unsorted element in the array (the second element at the start). We
+            then compare the value at the pointer with the element to its left
+            and swap them if the left element is larger. This comparing is
+            repeated until we encounter an element that is smaller than the
+            current element at hand. The pointer is then shifted to the right
+            once and the process is repeated until our pointer points to the
+            last element.
+          </p>
+
+          <div class="algorithm-image">
+            <img src="images/insertionSort.png" alt="" />
+          </div>
+        </div>
+
+        <!----------------------      Merge Sort      -------------------->
+        <div class="algorithm">
+          <h3>Merge Sort</h3>
+          <p class="algorithm-description">Needs description.</p>
+
+          <div class="algorithm-image">Needs image.</div>
+        </div>
+
+        <!----------------------      Quick Sort      -------------------->
+        <div class="algorithm">
+          <h3>Quick Sort</h3>
+          <p class="algorithm-description">Needs description.</p>
+
+          <div class="algorithm-image">
+            <img src="images/quickSort.png" alt="" />
+          </div>
+        </div>
+      </div>
     </main>
     <!---------------------     End of Main Section     ---------------------->
     <script src="algos.js"></script>
-</body>
+  </body>
 </html>
